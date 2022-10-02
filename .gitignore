@@ -1,0 +1,3 @@
+.venv
+src/network_device_names/config.py
+devices.csv
