@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "networkdevicenames"
+name = "network_device_names"
 version = "0.1.0"
 description = ""
 authors = ["kvanzuijlen <8818390+kvanzuijlen@users.noreply.github.com>"]

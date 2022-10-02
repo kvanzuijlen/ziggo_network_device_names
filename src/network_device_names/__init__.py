@@ -1,17 +1,13 @@
-# devices = [
-#     0"DesktopPC-icon.svg",
-#     1"Laptop-Icon.svg",
-#     2"Mobile-icon.svg",
-#     3"Tablet-icon.svg",
-#     4"Printer-icon.svg",
-#     5"Unknown-device.svg"
-# ]
 import csv
 import typing
 import urllib.parse
 from pathlib import Path
 
 from . import config
+
+
+class ZiggoConfigurationException(Exception):
+    pass
 
 
 def _get_device_names() -> typing.Generator:
@@ -21,7 +17,7 @@ def _get_device_names() -> typing.Generator:
         yield from reader
 
 
-def _name_network_device(device: typing.Dict):
+def _rename_network_device(device: typing.Dict):
     import requests
     data = urllib.parse.quote_plus(
         string=f'assocDevData={{"FriendlyName":"{device["FriendlyName"]}","MACAddress":"{device["MACAddress"]}"}}&opType=WRITE',
@@ -48,7 +44,7 @@ def _name_network_device(device: typing.Dict):
     response.raise_for_status()
 
     if response.text.strip() == "0":
-        raise Exception("Check your configuration")
+        raise ZiggoConfigurationException("Check your configuration")
 
     print(f"{device['FriendlyName']} configured with MAC {device['MACAddress']}")
 
@@ -56,7 +52,7 @@ def _name_network_device(device: typing.Dict):
 def run():
     devices = _get_device_names()
     for device in devices:
-        _name_network_device(device=device)
+        _rename_network_device(device=device)
 
 
 if __name__ == "__main__":
