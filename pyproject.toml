@@ -6,7 +6,7 @@ authors = ["kvanzuijlen <8818390+kvanzuijlen@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-requests = "^2.28.0"
+requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
 
